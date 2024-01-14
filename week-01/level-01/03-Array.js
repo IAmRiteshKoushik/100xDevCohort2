@@ -7,7 +7,6 @@
 
 
 // push()
-function 
 
 // pop()
 
