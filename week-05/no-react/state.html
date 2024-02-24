@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>State Management HTML</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    <!-- Entry point for HTML Injection-->
+        <div id="buttonParent">
+            
+        </div>
+
+    <!-- Only JavaScript no HTML-->
+        <script>
+            let state = {
+                count: 0
+            } 
+
+            function onButtonPress() {
+                state.count++;
+                buttonComponentReRender();
+            }
+
+            function buttonComponentReRender() {
+                document.getElementbyId("buttonParent").innerHTML = "";
+                const component = buttonComponentReRender(state.count);
+                document.getElementbyId("buttonParent").appendChild(component);
+            }
+
+            function buttomComponent(count){
+                const button = document.createElement("button");
+                button.innerHTML = `Counter ${count}`;
+                button.setAttribute("onclick", `onButtonPress()`);
+                return button;
+            }
+
+            buttonComponentReRender();
+        </script> 
+    </body>
+</html>
