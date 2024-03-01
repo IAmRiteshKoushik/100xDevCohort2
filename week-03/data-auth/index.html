@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>FetchAPI trials</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <script type="module">
+
+      // By using a sync function and promise chaining and callback hell
+      // were able to handle this, but there are better and cleaner ways
+      // to do it.
+
+      // FETCH API 
+      function getAnimalData() {
+        // fetchAPI returns a promise
+        const response = fetch("https://fakerapi.it/api/v1/persons").then(
+          function (response) {
+            // creating a JSON returns a promise
+            const json = response.json().then(function (finalData) {
+              console.log(finalData);
+            });
+          },
+        );
+      }
+
+      // AXIOS (implementation failed)
+      async function getUserData(){
+          try {
+    (implementation failed)       const response = await axios.get("https://fakerapi.it/api/v1/persons");
+              console.log(response);
+              document.getElementById("userData").innerHTMl = finalData;
+          } catch (error) {
+              console.error(error);
+          }
+      }
+
+      async function getAnimalDataAlt() {
+          const response = await fetch("https://fakerapi.it/api/v1/persons");
+          const finalData = await response.json();
+          console.log(finalData);
+          document.getElementById("userData").innerHTML = finalData;
+      }
+    </script>
+    <div id="userData">Div to display user-data</div>
+    <button onclick="getUserData()">Get user data</button>
+  </body>
+</html>
