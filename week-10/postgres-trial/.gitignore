@@ -1,5 +1,5 @@
 # Ignoring entire node modules folder
-./node_modules/
+node_modules/
 
 # Ignoring environment variables
 ./src/.env
