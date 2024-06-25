@@ -1,61 +1,75 @@
-import React, { memo } from "react";
-import { useState, Fragment } from "react";
+import { useState } from "react";
 
+function App(){
+    const[todos, setTodos] = useState([
+        {
+            id: 1,
+            title: "Go to gym",
+            desc: "Go to gym today",
+        },
+        {
+            id: 2,
+            title: "Go to cafe",
+            desc: "Go to cafe todayA,"
+        },
+        {
+            id: 3,
+            title: "Go to library",
+            desc: "Go to lib todayA,"
+        },
+    ]);
 
-function App() {
-    const [title, setTitle] = useState("My name is Ritesh");
-    function updateTitle(){
-        setTitle("My name is " + Math.random());
+    function addTodo(){
+        setTodos([...todos, {
+            id: 4,
+            title: Math.random(),
+            description: Math.random(),
+        }]);
     }
 
-    return(
-        // The Header cannot be used twice without haveing a parent element 
-        // You need not have an extra div by just having empty tags <>
-        // <> - best solution becomes does not introduce an extra DOM element
-        // Alternatively, you can use something called as React.Fragment or import as Fragment
+    // Alternate way to write the previous function (syntax is less overwhelming)
+    // UGLIER DEFINITELY
+    function altAddTodos(){
+        const newTodos = [];
+        for(let i = 0; i < todos.length; i++){
+            newTodos.push(todos[i]);
+        }
+        newTodos.push({
+            id: 4,
+            title: Math.random(),
+            description: Math.random(),
+        });
+        setTodos(newTodos);
+    }
 
-    <div>
-        {/*<HeaderWithButton />*/}
-        <button onClick={updateTitle}>Update the title</button>
-        <Header title={title}></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-        <Header title="Ritesh 04"></Header>
-    </div>
+    // Usage of Keys:
+    // ------------------------------------------------------------------------
+    // When using structures like arrays, when an array is re-ordered / sorted 
+    // manipulated in any capacity then keys helps react to avoid re-rendering the 
+    // entire list of components that were uniquely created with the elements of 
+    // the list and instead of just changing the structure or ordering of components
+    return(
+        <div>
+            <button onClick={addTodo}>Add a todo</button>
+            {
+                todos.map((todo) => (
+                    <Todo 
+                        title={todo.title} 
+                        description={todo.description}
+                        key={todo.id}
+                    />
+                ))}
+        </div>
     );
 }
 
-// Pushing down state variables down the component hierarchy
-// so that we can avoid re-renders
-// function HeaderWithButton() {
-//     const [title, setTitle] = useState("My name is Ritesh");
-//     function updateTitle(){
-//         setTitle("My name is " + Math.random());
-//     }
-//
-//     return (<div>
-//     <button onClick={updateTitle}>Update the title</button>
-//     <Header title={title}></Header>
-//     </div>);
-// }
+function Todo({title, description}){
+    return(
+        <div>
+            <h1>{title}</h1>
+            <p>{description}</p>
+        </div>
+    );
+}
 
-const Header = memo(function Header({title}){
-    return <div>
-        {title}
-    </div>
-});
-
-// The following function does not manage state well.
-// function Header({title}){
-//     return <div>
-//     {title}
-//     </div>
-// }
-
-export default App
+export default App;
