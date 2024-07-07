@@ -2,33 +2,34 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const App = () => {
-
-    const [todos, setTodos] = useState([]);
-
-    useEffect(() => {
-        // fetch("https://sum-server.100xdevs.com/todos")
-        //     .then(async function(res){
-        //         const json = await res.json();
-        //         setTodos(json.todos);
-        //     });
-        axios.get("https://sum-server.100xdevs.com/todos")
-            .then(function(res){
-                setTodos(res.data.todos)
-            })
-    }, []);
+    const [selectedId, setSelectedId] = useState(1);
 
     return(
         <div>
-            {todos.map(todo => <Todo title={todo.title} description={todo.description} />)}
+            <button onClick={() => selectedId(1)}>1</button>
+            <button onClick={() => selectedId(2)}>2</button>
+            <button onClick={() => selectedId(3)}>3</button>
+            <button onClick={() => selectedId(4)}>4</button>
+            <Todo id={selectedId}/>
         </div>
     );
 }
 
-function Todo({title, description}){
+function Todo({id}){
+    const [todo, setTodo] = useState({});
+
+    // implement effect here
+    useEffect(() => {
+        axios.get(`https://sum-server.100xdevs.com/todo?id=${id}`)
+            .then(response => {
+                setTodo(response.data.todo);
+            });
+
+    }, [id]);
+
     return(
         <div>
-            {title}
-            {description}
+
         </div>
     );
 }
