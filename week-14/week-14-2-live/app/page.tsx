@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import axios from "axios";
 
 async function getUserDetails() {
-    const response = await axios.get("https://week-13-offline.kirattechnologies.workers.dev/api/v1/user/details");
+    // This is bad, needs to be fixed
+    const response = await axios.get("http://localhost:3000/api/user");
     return response.data;
 }
 
@@ -17,7 +18,7 @@ export default async function Home() {
     // -- ARTIFICIAL DELAY
     // This allows the component to load after 5 seconds
     // Introduce loader in loading.tsx
-    await new Promise((r) => setTimeout(r, 5000));
+    // await new Promise((r) => setTimeout(r, 5000));
 
     // Harder to handle things with Recoil
     const userData = await getUserDetails();
