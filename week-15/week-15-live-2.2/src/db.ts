@@ -1,6 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose';
 
-const mongoUrl: string = 'mongodb://mongo:27017/myDatabase';
+// Name of mongo-container is to be used (it resolves like DNS)
+const mongoUrl: string = 'mongodb://mongo_rk:27017/myDatabase';
 
 // Connect to MongoDB
 mongoose.connect(mongoUrl)
