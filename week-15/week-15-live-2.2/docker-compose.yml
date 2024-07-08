@@ -2,6 +2,8 @@
 version: '3.8'
 
 services:
+
+  # docker run --name mongodb -p 27017:27017 -v mongodb_data:/data/db mongo
   mongodb:
     image: mongo
     container_name: mongodb
@@ -10,8 +12,11 @@ services:
     volumes:
       - mongodb_data:/data/db
   
+  # docker run --name backend_app -p 3000:3000 -e MONGO_URL=<url> backend22
   backend22:
-    image: backend22
+    # image: backend22
+    # If you do not have the image but want it to build from the current file
+    build: .
     container_name: backend_app
     depends_on:
       - mongodb
@@ -20,5 +25,12 @@ services:
     environment:
       MONGO_URL: "mongodb://mongodb:27017"
 
+# docker volume create volume_name
 volumes:
-  - mongodb_data: 
+  mongodb_data: 
+  # - other volumes can be created with further bullets
+
+
+# NOTE:
+# Docker compose always start a network by itself and it can be accessed 
+# together
