@@ -20,6 +20,7 @@ const consumer = kafka.consumer({
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        // Producing
         yield producer.connect();
         yield producer.send({
             topic: "quickstart-events",
@@ -27,6 +28,7 @@ function main() {
                     value: "Hello KafkaJS user from NodeJS process"
                 }]
         });
+        // Consuming
         yield consumer.connect();
         yield consumer.subscribe({
             topic: "quickstart-events",
